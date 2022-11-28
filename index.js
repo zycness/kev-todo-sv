@@ -10,6 +10,9 @@ app.use(cors({ credentials: true, origin: process.env.ORIGIN || true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api", router);
+app.use("/", () => {
+  console.log("success");
+});
 const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGO_ACCESS_URL)

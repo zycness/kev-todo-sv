@@ -6,11 +6,11 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api", router);
-app.use("/", (req, res) => {
+app.use("/", (res) => {
   res.status(200).json({ status: "success" });
   console.log("success");
 });

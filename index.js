@@ -10,7 +10,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api", router);
-app.use("/", (res) => {
+app.use("/", (req, res) => {
   res.status(200).json({ status: "success" });
   console.log("success");
 });

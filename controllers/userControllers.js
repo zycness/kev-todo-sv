@@ -63,19 +63,20 @@ const login = async (req, res) => {
     algorithm: "HS256",
   });
 
-  res.cookie(String(userExists._id), token, {
-    path: "/",
-    expires: new Date(Date.now() + 86400000),
-    httpOnly: true,
-    sameSite: "None",
-    secure: true,
-  });
-
-  return res.status(200).json({
-    message: "Inicio de sesión correcto",
-    user: userExists,
-    token: token,
-  });
+  return res
+    .cookie(String(userExists._id), token, {
+      path: "/",
+      expires: new Date(Date.now() + 86400000),
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    })
+    .status(200)
+    .json({
+      message: "Inicio de sesión correcto",
+      user: userExists,
+      token: token,
+    });
 };
 
 const verifyToken = async (req, res, next) => {
@@ -122,10 +123,10 @@ const logOut = async (req, res) => {
     if (err) {
       return res.status(400).json({ message: "Token inválido" });
     }
-    res.clearCookie(String(user.id), { sameSite: "None", secure: true });
-    res.cookie[String(user.id)] = "";
-    console.log("Sesión cerrada");
-    return res.status(200).json({ message: "Sesión cerrada" });
+    return res
+      .clearCookie(String(user.id), { sameSite: "None", secure: true })
+      .status(200)
+      .json({ message: "Sesión cerrada" });
   });
 };
 
